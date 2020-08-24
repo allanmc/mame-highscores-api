@@ -30,7 +30,7 @@ class HighscoreService(
                 val attr: BasicFileAttributes = Files.readAttributes(it.toPath(), BasicFileAttributes::class.java)
                 val highscores = hi2TxtService.readHighscores(it, attr.lastModifiedTime())
                 if (!highscores.isEmpty()) {
-                    val name = (if (useParentName) it.parentFile.name else it.name).dropLast(3)
+                    val name = (if (useParentName) it.parentFile.name else it.name).replace(".hi","")
                     gameHighScores.add(GameHighscore(name, highscores, attr.lastModifiedTime()))
                 }
             }

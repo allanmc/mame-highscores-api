@@ -22,7 +22,7 @@ class MainController(
         val result = arrayListOf<GameHighscore>()
         for (game in sortedList) {
             val higscores = game.highscores.take(3)
-            result.add(GameHighscore(game.name, higscores, null))
+            result.add(GameHighscore(game.name, higscores, game.lastModifiedTime))
         }
 
         return result

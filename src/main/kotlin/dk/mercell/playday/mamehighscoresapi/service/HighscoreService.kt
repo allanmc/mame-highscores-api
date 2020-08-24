@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.attribute.BasicFileAttributes
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 
 @Service
@@ -31,7 +33,7 @@ class HighscoreService(
                 val highscores = hi2TxtService.readHighscores(it, attr.lastModifiedTime())
                 if (!highscores.isEmpty()) {
                     val name = (if (useParentName) it.parentFile.name else it.name).replace(".hi","")
-                    gameHighScores.add(GameHighscore(name, highscores, attr.lastModifiedTime()))
+                    gameHighScores.add(GameHighscore(name, highscores, LocalDateTime.ofInstant(attr.lastModifiedTime().toInstant(), ZoneId.systemDefault())))
                 }
             }
         }

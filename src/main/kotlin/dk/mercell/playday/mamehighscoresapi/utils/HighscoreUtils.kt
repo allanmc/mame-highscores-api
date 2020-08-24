@@ -6,9 +6,7 @@ import gse.hi2txt.CmdTxt
 import gse.hi2txt.model.OutputData
 import gse.hi2txt.model.OutputField
 import gse.hi2txt.model.OutputTable
-import java.io.IOException
 import java.math.BigInteger
-import java.util.concurrent.TimeUnit
 
 object HighscoreUtils {
 

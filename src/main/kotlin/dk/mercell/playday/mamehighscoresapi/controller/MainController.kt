@@ -1,7 +1,7 @@
 package dk.mercell.playday.mamehighscoresapi.controller
 
+import Greeting
 import dk.mercell.playday.mamehighscoresapi.domain.GameHighscore
-import dk.mercell.playday.mamehighscoresapi.domain.Greeting
 import dk.mercell.playday.mamehighscoresapi.utils.HighscoreUtils
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,7 +17,6 @@ class MainController {
     @GetMapping("/greeting")
     fun greeting(@RequestParam(value = "name", defaultValue = "World") name: String) =
             arrayListOf(Greeting("mslug", "TCL", 100000),Greeting("ddp2", "TCL", 325325))
-            Greeting(counter.incrementAndGet(), "Hello, $name")
 
     @GetMapping("/run")
     fun run() = this.getHighScores()

@@ -1,3 +1,2 @@
-package dk.mercell.playday.mamehighscoresapi.domain
 
-data class Greeting(val id: Long, val content: String)
+data class Greeting(val game: String, val player: String, val score: Long)

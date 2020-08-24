@@ -31,7 +31,7 @@ class HighscoreService(
                 val highscores = hi2TxtService.readHighscores(it, attr.lastModifiedTime())
                 if (!highscores.isEmpty()) {
                     val name = if (useParentName) it.parentFile.name else it.name
-                    gameHighScores.add(GameHighscore(name, name, highscores))
+                    gameHighScores.add(GameHighscore(name, name, highscores, attr.lastModifiedTime()))
                 }
             }
         }

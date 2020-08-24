@@ -16,7 +16,16 @@ class MainController(
     fun run() = this.getHighScores()
 
     fun getHighScores(): List<GameHighscore> {
-        return highscoreService.getAllHighScores()
+        val allHighScores = highscoreService.getAllHighScores()
+        val sortedList = allHighScores.sortedWith(compareBy({ it.lastModifiedTime})).reversed()
+
+        val result = arrayListOf<GameHighscore>()
+        for (game in sortedList) {
+            val higscores = game.highscores.take(3)
+            result.add(GameHighscore(game.name,game.romName, higscores, null))
+        }
+
+        return result
     }
 
 }

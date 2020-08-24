@@ -1,3 +1,5 @@
 package dk.mercell.playday.mamehighscoresapi.domain
 
-data class GameHighscore(val name: String, val romName: String, val highscores: List<HighscoreEntry>)
+import java.nio.file.attribute.FileTime
+
+data class GameHighscore(val name: String, val romName: String, val highscores: List<HighscoreEntry>, var lastModifiedTime: FileTime?)

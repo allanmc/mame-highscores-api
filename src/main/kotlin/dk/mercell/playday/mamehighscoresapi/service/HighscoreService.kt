@@ -28,7 +28,6 @@ class HighscoreService(
         val gameHighScores = arrayListOf<GameHighscore>()
         File(path).walk().maxDepth(2).forEach {
             if (it.isFile) {
-                println(it.absolutePath)
                 val attr: BasicFileAttributes = Files.readAttributes(it.toPath(), BasicFileAttributes::class.java)
                 val highscores = hi2TxtService.readHighscores(it, attr.lastModifiedTime())
                 if (!highscores.isEmpty()) {

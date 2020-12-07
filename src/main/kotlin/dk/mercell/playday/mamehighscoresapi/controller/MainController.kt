@@ -17,10 +17,9 @@ class MainController(
 
     fun getHighScores(): List<GameHighscore> {
         val allHighScores = highscoreService.getAllHighScores()
-        val sortedList = allHighScores.sortedWith(compareBy({ it.lastModifiedTime})).reversed()
 
         val result = arrayListOf<GameHighscore>()
-        for (game in sortedList) {
+        for (game in allHighScores) {
             val higscores = game.highscores.take(3)
             result.add(GameHighscore(game.name, higscores, game.lastModifiedTime))
         }

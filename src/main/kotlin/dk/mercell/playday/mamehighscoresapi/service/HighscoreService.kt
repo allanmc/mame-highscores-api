@@ -29,6 +29,8 @@ class HighscoreService(
         updatePlayers(gameHighScores)
 
         return filterDisabledGames(dbGames, gameHighScores)
+            .sortedWith(compareBy { it.lastModifiedTime }).reversed()
+            .distinctBy { it.name }
     }
 
     private fun updatePlayers(gameHighScores: List<GameHighscore>) {

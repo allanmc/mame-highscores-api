@@ -24,37 +24,37 @@ class HighscoreService(
         gameHighScores.addAll(addGamesFromFolder("./data/hi/", false))
         gameHighScores.addAll(addGamesFromFolder("./data/nvram/", true))
 
-        val dbGames = gameRepository.findAll();
-        updateKnownGamesInDB(dbGames, gameHighScores);
+        val dbGames = gameRepository.findAll()
+        updateKnownGamesInDB(dbGames, gameHighScores)
         updatePlayers(gameHighScores)
 
         return filterDisabledGames(dbGames, gameHighScores)
     }
 
     private fun updatePlayers(gameHighScores: List<GameHighscore>) {
-        val players = playerRepository.findAll();
+        val players = playerRepository.findAll()
         val playerMap: HashMap<String, String> = hashMapOf()
         for (player in players) {
-            val tags = player.tags.split(',');
+            val tags = player.tags.split(',')
             for (tag in tags) {
-                playerMap.put(tag.toLowerCase(), player.name);
+                playerMap.put(tag.toLowerCase(), player.name)
             }
         }
         for (gameHighScore in gameHighScores) {
             for (highscore in gameHighScore.highscores) {
-                highscore.name = playerMap.getOrDefault(highscore.name.toLowerCase().trim(), highscore.name)
+                highscore.alias = playerMap.getOrDefault(highscore.name.toLowerCase().trim(), highscore.name)
             }
         }
     }
 
     private fun filterDisabledGames(dbGames: List<Game>, gameHighScores: List<GameHighscore>): List<GameHighscore> {
-        val enabledGameNames = dbGames.filter { game -> game.enabled }.map { game -> game.id };
+        val enabledGameNames = dbGames.filter { game -> game.enabled }.map { game -> game.id }
         return gameHighScores.filter { gameHighScore -> enabledGameNames.contains(gameHighScore.name) }
     }
 
     private fun updateKnownGamesInDB(dbGames: List<Game>, loadedGames: List<GameHighscore>) {
         val loadedGameNames = loadedGames.map { loadedGame -> loadedGame.name }
-        val dbGameNames = dbGames.map { game -> game.id };
+        val dbGameNames = dbGames.map { game -> game.id }
         val newGameNames = loadedGameNames
                 .filter { s -> !dbGameNames.contains(s) }
                 .distinct()

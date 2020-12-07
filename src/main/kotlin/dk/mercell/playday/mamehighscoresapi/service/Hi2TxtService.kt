@@ -26,17 +26,18 @@ class Hi2TxtService {
 
     private fun executeHi2txt(path: String): String? {
         try {
-            val proc = ProcessBuilder("java",
-                    "-jar", "lib/hi2txt.jar",
-                    "-hiscoredat", "./data/hiscore.dat",
-                    "-r", path,
-                    "-keep-field", "RANK",
-                    "-keep-field", "SCORE",
-                    "-keep-field", "NAME"
+            val proc = ProcessBuilder(
+                "java",
+                "-jar", "lib/hi2txt.jar",
+                "-hiscoredat", "./data/hiscore.dat",
+                "-r", path,
+                "-keep-field", "RANK",
+                "-keep-field", "SCORE",
+                "-keep-field", "NAME"
             )
-                    .redirectOutput(ProcessBuilder.Redirect.PIPE)
-                    .redirectError(ProcessBuilder.Redirect.PIPE)
-                    .start()
+                .redirectOutput(ProcessBuilder.Redirect.PIPE)
+                .redirectError(ProcessBuilder.Redirect.PIPE)
+                .start()
 
             proc.waitFor(1000, TimeUnit.MILLISECONDS)
 
@@ -49,7 +50,7 @@ class Hi2TxtService {
     }
 
     private fun parseOutput(output: String): List<HighscoreEntry> {
-        val highscores = arrayListOf<HighscoreEntry>();
+        val highscores = arrayListOf<HighscoreEntry>()
 
         val scanner = Scanner(output)
         while (scanner.hasNext()) {
@@ -68,11 +69,12 @@ class Hi2TxtService {
             val parts = line.split("|")
             if (parts.size == 3) {
                 return HighscoreEntry(
-                        BigInteger(parts[1]),
-                        parts[2]
+                    BigInteger(parts[1]),
+                    parts[2],
+                    parts[2]
                 )
             }
-        };
+        }
         return null
     }
 
